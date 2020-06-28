@@ -35,4 +35,6 @@ async function main() {
   
 }
 
+//https://stackoverflow.com/questions/56289063/nodemailor-cant-sending-emails-on-cross-domains
+
 main().catch(console.error);
