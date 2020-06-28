@@ -1,18 +1,18 @@
 const nodemailer = require("nodemailer");
 const smtpTransport = require('nodemailer-smtp-transport');
-
+const dotenv = require('dotenv');
+dotenv.config()
 async function main() {
-
-  let testAccount = await nodemailer.createTestAccount();
+    
 
   let transporter = nodemailer.createTransport(smtpTransport({
-    name: 'hostgator',
-    host: "mail.liteboards.com",
+    name: process.env.NAME,
+    host: process.env.HOST,
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: 'admin@mail.liteboards.com', // generated ethereal user
-      pass: 'Shagun01', // generated ethereal password
+      user: process.env.SENDER, // generated ethereal user
+      pass: process.env.PASSWORD, // generated ethereal password
     },
     tls:{
         rejectUnauthorized:false
@@ -21,10 +21,10 @@ async function main() {
 
   // send mail with defined transport object
   transporter.sendMail({
-    from: 'admin@mail.liteboards.com', // sender address
-    to: "sauravsehgal44@gmail.com", // list of receivers
+    from: `"${process.env.PRODUCT}" <${process.env.SENDER}>`, // sender address
+    to: process.env.TO, // list of receivers
     subject: "Hello", // Subject line
-    html: "<b>Hello world</b>", // html body
+    html: "<b>Hey Saurav</b>", // html body
   })
   .then((result)=>{
       console.log(result)
